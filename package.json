@@ -1,5 +1,5 @@
 {
-  "name": "template-binding",
+  "name": "epoxy",
   "version": "0.0.0",
   "description": "Declarative template data binding.",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:rkusa/template-binding.git"
+    "url": "git@github.com:rkusa/epoxy.git"
   },
   "author": "Markus Ast <npm.m@rkusa.st>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rkusa/template-binding/issues"
+    "url": "https://github.com/rkusa/epoxy/issues"
   },
-  "homepage": "https://github.com/rkusa/template-binding",
+  "homepage": "https://github.com/rkusa/epoxy",
   "devDependencies": {
     "browserify": "^5.10.1",
     "chai": "^1.9.1",

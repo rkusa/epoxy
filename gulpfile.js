@@ -23,10 +23,10 @@ gulp.task('test', function () {
 var browserify = require('browserify')
 var source     = require('vinyl-source-stream')
 gulp.task('browserify', function() {
-  return browserify({ entries: './lib/index.js', standalone: 'glue' })
+  return browserify({ entries: './lib/index.js', standalone: 'epoxy' })
       .bundle()
-      .pipe(source('bundle.js'))
-      .pipe(gulp.dest('./test'))
+      .pipe(source('epoxy.js'))
+      .pipe(gulp.dest('./'))
 })
 
 var spawn = require('child_process').spawn

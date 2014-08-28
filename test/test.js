@@ -1,33 +1,33 @@
 describe('expression parser', function() {
   it('should parse identifiers', function() {
     var expr = '{{ foobar }}'
-    var ast  = glue.parse(expr)
+    var ast  = epoxy.parse(expr)
     expect(ast.body).to.have.lengthOf(1)
-    expect(ast.body[0]).to.be.an.instanceOf(glue.ast.Expression)
-    expect(ast.body[0].path).to.be.an.instanceOf(glue.ast.Path)
+    expect(ast.body[0]).to.be.an.instanceOf(epoxy.ast.Expression)
+    expect(ast.body[0].path).to.be.an.instanceOf(epoxy.ast.Path)
     expect(ast.body[0].path.keys).to.eql(['foobar'])
   })
 
   it('should parse paths', function() {
     var expr = '{{ foo.bar }}'
-    var ast  = glue.parse(expr)
+    var ast  = epoxy.parse(expr)
     expect(ast.body).to.have.lengthOf(1)
-    expect(ast.body[0].path).to.be.an.instanceOf(glue.ast.Path)
+    expect(ast.body[0].path).to.be.an.instanceOf(epoxy.ast.Path)
     expect(ast.body[0].path.keys).to.eql(['foo', 'bar'])
   })
 
   it('should find expression inside text', function() {
     var expr = 'some {{ foo.bar }} content'
-    var ast  = glue.parse(expr)
+    var ast  = epoxy.parse(expr)
     expect(ast.body).to.have.lengthOf(3)
 
-    expect(ast.body[0]).to.be.an.instanceOf(glue.ast.Text)
+    expect(ast.body[0]).to.be.an.instanceOf(epoxy.ast.Text)
     expect(ast.body[0].text).to.equal('some ')
 
-    expect(ast.body[1].path).to.be.an.instanceOf(glue.ast.Path)
+    expect(ast.body[1].path).to.be.an.instanceOf(epoxy.ast.Path)
     expect(ast.body[1].path.keys).to.eql(['foo', 'bar'])
 
-    expect(ast.body[2]).to.be.an.instanceOf(glue.ast.Text)
+    expect(ast.body[2]).to.be.an.instanceOf(epoxy.ast.Text)
     expect(ast.body[2].text).to.equal(' content')
   })
 })
@@ -90,7 +90,7 @@ function compile(name, model) {
     var expectation = document.querySelector('#' + name + '-expectation')
 
     var clone = document.importNode(template.content, true)
-    glue.bind(clone, model)
+    epoxy.bind(clone, model)
 
     var div = document.createElement('div')
     div.appendChild(clone)
