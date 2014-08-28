@@ -1,0 +1,18 @@
+{
+  "name": "template-binding",
+  "version": "0.0.0",
+  "authors": [
+    "Markus Ast <npm.m@rkusa.st>"
+  ],
+  "description": "Declarative template data binding.",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "homepage": "https://github.com/rkusa/template-binding",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

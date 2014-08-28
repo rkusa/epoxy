@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+    <style>
+      .hidden { display: none; }
+    </style>
+  </head>
+  <body>
+    <div class="hidden">
+      <!-- should find expression inside a text node -->
+
+      <template id="text-template">
+        <p>
+          You have {{ tasks.length }} open tasks.
+        </p>
+      </template>
+
+      <div id="text-expectation">
+        <p>
+          You have 2 open tasks.
+        </p>
+      </div>
+
+      <!-- should find expression inside an attribute node -->
+
+      <template id="attribute-template">
+        <a href="tasks/{{ id }}">{{ task }}</a>
+      </template>
+
+      <div id="attribute-expectation">
+        <a href="tasks/1">this</a>
+      </div>
+
+      <!-- boolean attributes should be kept if evaluated to true -->
+
+      <template id="boolattrtrue-template">
+        <input type="checkbox" checked="{{ isDone }}" />
+      </template>
+
+      <div id="boolattrtrue-expectation">
+        <input type="checkbox" checked="" />
+      </div>
+
+      <!-- boolean attributes should be removed if evaluated to false -->
+
+      <template id="boolattrfalse-template">
+        <input type="checkbox" checked="{{ isDone }}" />
+      </template>
+
+      <div id="boolattrfalse-expectation">
+        <input type="checkbox" />
+      </div>
+
+      <!-- if helper should be rendered if evaluated to true -->
+
+      <template id="iftrue-template">
+        <template if="{{ isDone }}">
+          <b>Works!</b>
+        </template>
+      </template>
+
+      <div id="iftrue-expectation">
+        <b>Works!</b>
+        <template if="{{ isDone }}">
+          <b>Works!</b>
+        </template>
+      </div>
+
+      <!-- if helper should not be rendered if evaluated to false -->
+
+      <template id="iffalse-template">
+        <template if="{{ isDone }}">
+          <b>Works!</b>
+        </template>
+      </template>
+
+      <div id="iffalse-expectation">
+        <template if="{{ isDone }}">
+          <b>Works!</b>
+        </template>
+      </div>
+
+      <!-- repeat helper should work -->
+
+      <template id="repeat-template">
+        <ul>
+          <template repeat="{{ tasks }}">
+            <li>{{ task }}</li>
+          </template>
+        </ul>
+      </template>
+
+      <div id="repeat-expectation">
+        <ul>
+          <li>this</li>
+          <li>that</li>
+          <template repeat="{{ tasks }}">
+            <li>{{ task }}</li>
+          </template>
+        </ul>
+      </div>
+
+      <!-- repeat and if helper combined should be rendered if evaluated to true -->
+
+      <template id="repeattrue-template">
+        <ul>
+          <template repeat="{{ tasks }}" if="{{ isVisible }}">
+            <li>{{ task }}</li>
+          </template>
+        </ul>
+      </template>
+
+      <div id="repeattrue-expectation">
+        <ul>
+          <li>this</li>
+          <li>that</li>
+          <template repeat="{{ tasks }}" if="{{ isVisible }}">
+            <li>{{ task }}</li>
+          </template>
+        </ul>
+      </div>
+
+      <!-- repeat and if helper combined should be rendered if evaluated to true -->
+
+      <template id="repeatfalse-template">
+        <ul>
+          <template repeat="{{ tasks }}" if="{{ isVisible }}">
+            <li>{{ task }}</li>
+          </template>
+        </ul>
+      </template>
+
+      <div id="repeatfalse-expectation">
+        <ul>
+          <template repeat="{{ tasks }}" if="{{ isVisible }}">
+            <li>{{ task }}</li>
+          </template>
+        </ul>
+      </div>
+
+    </div>
+
+    <div id="mocha"></div>
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+    <script src="./bundle.js" type="text/javascript"></script>
+    <script>
+      mocha.ui('bdd');
+      mocha.reporter('html');
+      expect = chai.expect;
+    </script>
+    <script src="test.js"></script>
+    <script>
+      if (window.mochaPhantomJS) {
+        mochaPhantomJS.run()
+      } else {
+        mocha.run()
+      }
+    </script>
+  </body>
+</html>
