@@ -30,6 +30,14 @@ describe('expression parser', function() {
     expect(ast.body[2]).to.be.an.instanceOf(epoxy.ast.Text)
     expect(ast.body[2].text).to.equal(' content')
   })
+
+  it('should parse aliases', function() {
+    var expr = '{{ foo as bar }}'
+    var ast  = epoxy.parse(expr)
+    expect(ast.body).to.have.lengthOf(1)
+    expect(ast.body[0].path.keys).to.eql(['foo'])
+    expect(ast.body[0].alias).to.equal('bar')
+  })
 })
 
 var model = {
@@ -50,11 +58,19 @@ describe('template', function() {
   })
 
   describe('boolean attributes', function() {
-    it('should be kept if evaluated to true',
-      compile('boolattrtrue', model.tasks[0]))
+    it('should be kept if evaluated to true', function() {
+      compile('boolattrtrue', model.tasks[0])()
+      var checkbox = document.querySelector('#boolattrtrue-expectation input')
+      checkbox.checked = true
+      console.dir(checkbox)
+      expect(checkbox.checked).to.be.true
+    })
 
-    it('should be removed if evaluated to false',
-      compile('boolattrfalse', model.tasks[1]))
+    it('should be removed if evaluated to false', function() {
+      compile('boolattrfalse', model.tasks[0])()
+      var checkbox = document.querySelector('#boolattrfalse-expectation input')
+      expect(checkbox.checked).to.be.false
+    })
   })
 
   describe('if helper', function() {
@@ -66,7 +82,9 @@ describe('template', function() {
   })
 
   describe('repeat helper', function() {
-    it('should work', compile('repeat', model))
+    it('should work without alias', compile('repeat', model))
+
+    it('should work with alias', compile('repeatalias', model))
   })
 
   describe('repeat and if helper combined', function() {

@@ -40,7 +40,7 @@
       </template>
 
       <div id="boolattrtrue-expectation">
-        <input type="checkbox" checked="" />
+        <input type="checkbox" />
       </div>
 
       <!-- boolean attributes should be removed if evaluated to false -->
@@ -82,7 +82,7 @@
         </template>
       </div>
 
-      <!-- repeat helper should work -->
+      <!-- repeat helper should work without alias-->
 
       <template id="repeat-template">
         <ul>
@@ -98,6 +98,26 @@
           <li>that</li>
           <template repeat="{{ tasks }}">
             <li>{{ task }}</li>
+          </template>
+        </ul>
+      </div>
+
+      <!-- repeat helper should work with alias -->
+
+      <template id="repeatalias-template">
+        <ul>
+          <template repeat="{{ tasks as task}}">
+            <li>{{ task.task }}</li>
+          </template>
+        </ul>
+      </template>
+
+      <div id="repeatalias-expectation">
+        <ul>
+          <li>this</li>
+          <li>that</li>
+          <template repeat="{{ tasks as task}}">
+            <li>{{ task.task }}</li>
           </template>
         </ul>
       </div>
