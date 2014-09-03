@@ -7,11 +7,13 @@ gulp.task('watch', ['browserify', 'jison'], function() {
   gulp.watch(['lib/**/*.js'], ['browserify'])
 })
 
-var testem = require('testem')
-gulp.task('test', ['browserify'], function (done) {
-  var t = new testem()
+gulp.task('test', ['lint', 'testem'])
+
+var Testem = require('testem')
+gulp.task('testem', ['browserify'], function () {
+  var t = new Testem()
   return t.startCI({
-    test_page: 'test/runner.html',
+    'test_page': 'test/runner.html',
     launch: 'Chrome'
   })
 })
@@ -23,6 +25,14 @@ gulp.task('browserify', function() {
       .bundle()
       .pipe(source('epoxy.js'))
       .pipe(gulp.dest('./'))
+})
+
+var eslint = require('gulp-eslint')
+gulp.task('lint', function() {
+  return gulp.src(['!lib/parser/parser.js', 'lib/**/*.js', 'test/**/*.js', 'gulpfile.js'])
+             .pipe(eslint())
+             .pipe(eslint.format())
+             .pipe(eslint.failOnError())
 })
 
 var spawn = require('child_process').spawn

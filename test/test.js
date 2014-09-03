@@ -1,3 +1,7 @@
+/*global expect, epoxy*/
+
+'use strict'
+
 describe('expression parser', function() {
   it('should parse identifiers', function() {
     var expr = '{{ foobar }}'
