@@ -40,15 +40,21 @@ describe('expression parser', function() {
   })
 })
 
-var model = {
-  isVisible: true,
-  tasks: [
-    { id: 1, isDone: true, task: 'this' },
-    { id: 2, isDone: false, task: 'that' }
-  ]
-}
-
 describe('template', function() {
+  var model
+  function resetModel() {
+    model = {
+      isVisible: true,
+      color: 'red',
+      tasks: [
+        { id: 1, isDone: true, task: 'this' },
+        { id: 2, isDone: false, task: 'that' }
+      ]
+    }
+  }
+  resetModel()
+  afterEach(resetModel)
+
   describe('expressions', function() {
     it('should find expression inside a text node',
       compile('text', model))
@@ -62,7 +68,6 @@ describe('template', function() {
       compile('boolattrtrue', model.tasks[0])()
       var checkbox = document.querySelector('#boolattrtrue-expectation input')
       checkbox.checked = true
-      console.dir(checkbox)
       expect(checkbox.checked).to.be.true
     })
 
@@ -99,7 +104,79 @@ describe('template', function() {
     })
   })
 
+  describe('two-way data binding', function() {
+    it('should work for attributes', function(done) {
+      var fragment = bind('binding-attribute', model)
+      var span = fragment.querySelector('span')
+      expect(span.getAttribute('style')).to.equal('color: red')
 
+      model.color = 'blue'
+      setTimeout(function() {
+        expect(span.getAttribute('style')).to.equal('color: blue')
+        done()
+      })
+    })
+
+    it('should work for boolean attributes (int)', function(done) {
+      var task     = model.tasks[0]
+      var fragment = bind('binding-boolean-attribute', task)
+      var checkbox = fragment.querySelector('input')
+      expect(checkbox.checked).to.be.true
+
+      task.isDone = false
+      setTimeout(function() {
+        expect(checkbox.checked).to.be.false
+        done()
+      })
+    })
+
+    it('should work for boolean attributes (out)', function(done) {
+      var task     = model.tasks[0]
+      var fragment = bind('binding-boolean-attribute', task)
+      var checkbox = fragment.querySelector('input')
+      expect(checkbox.checked).to.be.true
+
+      checkbox.checked = false
+      var changeEvent = document.createEvent('HTMLEvents')
+      changeEvent.initEvent('change', false, true)
+      checkbox.dispatchEvent(changeEvent)
+
+      setTimeout(function() {
+        expect(task.isDone).to.be.false
+        done()
+      })
+    })
+
+    it('should work for input values (in)', function(done) {
+      var task     = model.tasks[0]
+      var fragment = bind('binding-input-value', task)
+      var input    = fragment.querySelector('input')
+      expect(input.value).to.equal('this')
+
+      task.task = 'something'
+      setTimeout(function() {
+        expect(input.value).to.equal('something')
+        done()
+      })
+    })
+
+    it('should work for input values (out)', function(done) {
+      var task     = model.tasks[0]
+      var fragment = bind('binding-input-value', task)
+      var input    = fragment.querySelector('input')
+      expect(input.value).to.equal('this')
+
+      input.value = 'something'
+      var changeEvent = document.createEvent('HTMLEvents')
+      changeEvent.initEvent('change', false, true)
+      input.dispatchEvent(changeEvent)
+
+      setTimeout(function() {
+        expect(task.task).to.equal('something')
+        done()
+      })
+    })
+  })
 })
 
 function compile(name, model) {
@@ -118,4 +195,12 @@ function compile(name, model) {
 
     expect(result).to.equal(expectation)
   }
+}
+
+function bind(name, model) {
+  var template  = document.querySelector('#' + name + '-template')
+  var clone     = document.importNode(template.content, true)
+  epoxy.bind(clone, model)
+
+  return clone
 }

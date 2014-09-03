@@ -160,10 +160,29 @@
         </ul>
       </div>
 
+      <!-- two-way data binding should work for attributes -->
+
+      <template id="binding-attribute-template">
+        <span style="color: {{color}}"></span>
+      </template>
+
+      <!-- two-way data binding should work for boolean attributes -->
+
+      <template id="binding-boolean-attribute-template">
+        <input type="checkbox" checked="{{ isDone }}" />
+      </template>
+
+      <!-- two-way data binding should work for boolean attributes -->
+
+      <template id="binding-input-value-template">
+        <input type="text" value="{{ task }}" />
+      </template>
+
     </div>
 
     <div id="mocha"></div>
     <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="/testem.js"></script>
     <script src="../node_modules/chai/chai.js"></script>
     <script src="../epoxy.js" type="text/javascript"></script>
     <script>
@@ -173,11 +192,7 @@
     </script>
     <script src="test.js"></script>
     <script>
-      if (window.mochaPhantomJS) {
-        mochaPhantomJS.run()
-      } else {
-        mocha.run()
-      }
+      mocha.run()
     </script>
   </body>
 </html>
