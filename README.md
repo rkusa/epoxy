@@ -1,12 +1,50 @@
 # epoxy
 
-[![NPM][npm]](https://npmjs.org/package/epoxy)
+Declarative template data binding.
 
-## Depends on:
+[![NPM][npm]](https://npmjs.org/package/epoxy) 
+[![Build Status][drone]](https://drone.io/github.com/rkusa/epoxy/latest)
+
+`epoxy` uses the following emerging Web standards:
 
 - MutationObserver
 - WeakMap
 - Object.observe
+
+## Usage
+
+```js
+    epoxy.bind(target, data)
+```
+
+## Syntax
+
+### Variables
+
+```html
+    <input type="checkbox" checked="{{ todo.isDone }}" />
+    <input type="text" value="{{ todo.task }}" />
+```
+
+### Repeat
+
+```html
+    <ul>
+      <template repeat="{{ todos }}">
+        <li>{{ task }}</li>
+      </template>
+    </ul>
+```
+
+### If
+
+```html
+  <template if="{{ todos.length }}">
+    You have {{ todos.length }} todos left.
+  </template>
+```
+
+You can also combine `if` and `repeat`.
 
 ## MIT License
 
@@ -19,3 +57,4 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [npm]: http://img.shields.io/npm/v/epoxy.svg?style=flat-square
+[drone]: https://drone.io/github.com/rkusa/epoxy/status.png
