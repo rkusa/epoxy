@@ -1,5 +1,4 @@
 var gulp = require('gulp')
-var karma = require('karma').server
 
 gulp.task('default', ['watch'])
 
@@ -8,17 +7,14 @@ gulp.task('watch', ['browserify', 'jison'], function() {
   gulp.watch(['lib/**/*.js'], ['browserify'])
 })
 
-gulp.task('test', function () {
-  return gulp.src('test/runner.html')
-             .pipe(require('gulp-mocha-phantomjs')())
+var testem = require('testem')
+gulp.task('test', ['browserify'], function (done) {
+  var t = new testem()
+  return t.startCI({
+    test_page: 'test/runner.html',
+    launch: 'Chrome'
+  })
 })
-
-// gulp.task('test', function (done) {
-//   karma.start({
-//     configFile: __dirname + '/karma.conf.js',
-//     singleRun: true
-//   }, done)
-// })
 
 var browserify = require('browserify')
 var source     = require('vinyl-source-stream')

@@ -4,7 +4,7 @@
   "description": "Declarative template data binding.",
   "main": "index.js",
   "scripts": {
-    "test": "gulp"
+    "test": "./node_modules/.bin/gulp test"
   },
   "repository": {
     "type": "git",
@@ -20,15 +20,9 @@
     "browserify": "^5.10.1",
     "chai": "^1.9.1",
     "gulp": "^3.8.7",
-    "gulp-bg": "0.0.5",
-    "gulp-mocha-phantomjs": "^0.5.0",
     "jison": "^0.4.15",
-    "karma": "^0.12.22",
-    "karma-chai": "^0.1.0",
-    "karma-chrome-launcher": "^0.1.4",
-    "karma-html2js-preprocessor": "^0.1.0",
-    "karma-mocha": "^0.1.9",
     "mocha": "^1.21.4",
+    "testem": "^0.6.18",
     "vinyl-source-stream": "^0.1.1"
   }
 }
