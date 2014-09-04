@@ -1,3 +1,5 @@
+/*eslint no-process-exit: 0*/
+
 var gulp = require('gulp')
 
 gulp.task('default', ['watch'])
@@ -7,15 +9,19 @@ gulp.task('watch', ['browserify', 'jison'], function() {
   gulp.watch(['lib/**/*.js'], ['browserify'])
 })
 
-gulp.task('test', ['lint', 'testem'])
+gulp.task('test', ['lint', 'testem'], function() {
+  setImmediate(function() {
+    process.exit(0)
+  })
+})
 
 var Testem = require('testem')
-gulp.task('testem', ['browserify'], function () {
+gulp.task('testem', ['browserify'], function (done) {
   var t = new Testem()
-  return t.startCI({
+  t.startCI({
     'test_page': 'test/runner.html',
     launch: 'Chrome'
-  })
+  }, done)
 })
 
 var browserify = require('browserify')

@@ -3,7 +3,7 @@
 Declarative template data binding.
 
 [![NPM][npm]](https://npmjs.org/package/epoxy) 
-[![Build Status][drone]](https://drone.io/github.com/rkusa/epoxy/latest)
+[![Build Status][drone]](https://ci.rkusa.st/github.com/rkusa/epoxy)
 
 `epoxy` uses the following emerging Web standards:
 
@@ -19,14 +19,14 @@ Declarative template data binding.
 
 ## Syntax
 
-### Variables
+#### Variables
 
 ```html
     <input type="checkbox" checked="{{ todo.isDone }}" />
     <input type="text" value="{{ todo.task }}" />
 ```
 
-### Repeat
+#### Repeat
 
 ```html
     <ul>
@@ -36,7 +36,7 @@ Declarative template data binding.
     </ul>
 ```
 
-### If
+#### If
 
 ```html
   <template if="{{ todos.length }}">
@@ -57,4 +57,4 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [npm]: http://img.shields.io/npm/v/epoxy.svg?style=flat-square
-[drone]: https://drone.io/github.com/rkusa/epoxy/status.png
+[drone]: https://ci.rkusa.st/github.com/rkusa/epoxy/status.svg?branch=master

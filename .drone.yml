@@ -1,0 +1,10 @@
+image: drone/node:0.10+chrome
+script:
+  - Xvfb :99 -extension RANDR -screen 0 1024x768x24 &
+  - export DISPLAY=:99
+  - npm install --silent
+  - npm test
+notify:
+  email:
+    recipients:
+      - m+epoxy@rkusa.st
