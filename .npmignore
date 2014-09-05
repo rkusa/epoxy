@@ -1,5 +1,4 @@
 /test
-/epoxy*
 **/.*
 *.sublime-project
 *.sublime-workspace

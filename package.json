@@ -1,6 +1,6 @@
 {
   "name": "epoxy",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Declarative template data binding.",
   "main": "index.js",
   "scripts": {

@@ -57,4 +57,4 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [npm]: http://img.shields.io/npm/v/epoxy.svg?style=flat-square
-[drone]: https://ci.rkusa.st/github.com/rkusa/epoxy/status.svg?branch=master
+[drone]: https://ci.rkusa.st/github.com/rkusa/epoxy/status.svg?success=https://img.shields.io/badge/build-success-brightgreen.svg?style=flat-square&failure=https://img.shields.io/badge/build-failure-red.svg?style=flat-square

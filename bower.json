@@ -1,14 +1,15 @@
 {
   "name": "epoxy",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "authors": [
     "Markus Ast <npm.m@rkusa.st>"
   ],
   "description": "Declarative template data binding.",
-  "main": "lib/index.js",
+  "main": "epoxy.js",
   "license": "MIT",
   "homepage": "https://github.com/rkusa/epoxy",
   "ignore": [
+    "**/*",
     "!(./epoxy*)",
     "!(README.md)",
     "!(LICENSE)",

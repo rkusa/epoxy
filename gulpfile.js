@@ -30,7 +30,7 @@ gulp.task('browserify', function() {
   return browserify({ entries: './lib/index.js', standalone: 'epoxy' })
       .bundle()
       .pipe(source('epoxy.js'))
-      .pipe(gulp.dest('./'))
+      .pipe(gulp.dest('./dist'))
 })
 
 var eslint = require('gulp-eslint')
