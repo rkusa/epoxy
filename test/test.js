@@ -42,6 +42,14 @@ describe('expression parser', function() {
     expect(ast.body[0].path.keys).to.eql(['foo'])
     expect(ast.body[0].alias).to.equal('bar')
   })
+
+  it('should parse filter', function() {
+    var expr = '{{ foo | bar }}'
+    var ast  = epoxy.parse(expr)
+    expect(ast.body).to.have.lengthOf(1)
+    expect(ast.body[0].path.keys).to.eql(['foo'])
+    expect(ast.body[0].filter).to.equal('bar')
+  })
 })
 
 describe('template', function() {

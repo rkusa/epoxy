@@ -12,7 +12,8 @@
     "radix": 2,
     "semi": [2, "never"],
     "quotes": [2, "single"],
-    "no-unused-vars": [2, {"vars": "all", "args": "after-used"}]
+    "no-unused-vars": [2, {"vars": "all", "args": "after-used"}],
+    "no-redeclare": 0
   },
   "globals": {
     "WeakMap": true

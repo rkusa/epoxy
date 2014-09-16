@@ -1,12 +1,12 @@
 %lex /* lexical grammar */
 
-%x glue
+%x epoxy
 
 %%
 
 [^\x00]*?/("{{")
     {
-        this.begin('glue')
+        this.begin('epoxy')
         if (yytext) return 'TEXT'
     }
 
@@ -15,37 +15,42 @@
         return 'TEXT';
     }
 
-<glue>\s+
+<epoxy>\s+
     /* skip whitespace */
 
 
-<glue>'as'
+<epoxy>'as'
     {
         return 'AS';
     }
 
-<glue>[^\{\}\.\s]+
+<epoxy>[^\{\}\.\s\|]+
     {
         return 'IDENTIFIER';
     }
 
-<glue>'{{'
+<epoxy>'{{'
     {
         return 'OPEN';
     }
 
-<glue>'}}'
+<epoxy>'}}'
     {
         this.begin('INITIAL')
         return 'CLOSE';
     }
 
-<glue>'.'
+<epoxy>'.'
     {
         return 'DOT';
     }
 
-<INITIAL,glue><<EOF>>
+<epoxy>'|'
+    {
+        return 'FILTER';
+    }
+
+<INITIAL,epoxy><<EOF>>
     {
         return 'EOF';
     }
@@ -78,8 +83,12 @@ parts
 part
     : OPEN statement AS identifier CLOSE
         { $$ = new yy.Expression(new yy.Path($statement), $identifier) }
+    | OPEN statement FILTER identifier CLOSE
+        { $$ = new yy.Expression(new yy.Path($statement), undefined, $identifier) }
     | OPEN statement CLOSE
         { $$ = new yy.Expression(new yy.Path($statement)) }
+    | OPEN CLOSE
+        { $$ = new yy.Expression(new yy.Path([])) }
     | TEXT
         { $$ = new yy.Text($1) }
     ;
