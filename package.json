@@ -4,7 +4,8 @@
   "description": "Declarative template data binding.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "./node_modules/.bin/gulp test"
+    "test": "./node_modules/.bin/gulp test",
+    "prepublish": "gulp browserify"
   },
   "repository": {
     "type": "git",

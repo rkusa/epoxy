@@ -4,56 +4,20 @@
 
 %%
 
-[^\x00]*?/("{{")
-    {
-        this.begin('epoxy')
-        if (yytext) return 'TEXT'
-    }
+[^\x00]*?/("{{")        { this.begin('epoxy')
+                          if (yytext) return 'TEXT' }
+[^\x00]+                { return 'TEXT'; }
 
-[^\x00]+
-    {
-        return 'TEXT';
-    }
+<epoxy>\s+              /* skip whitespace */
+<epoxy>'as'             { return 'as' }
+<epoxy>[^\{\}\.\s\|]+   { return 'IDENTIFIER' }
+<epoxy>'{{'             { return 'OPEN' }
+<epoxy>'}}'             { this.begin('INITIAL')
+                          return 'CLOSE' }
+<epoxy>'.'              { return '.' }
+<epoxy>'|'              { return '|' }
 
-<epoxy>\s+
-    /* skip whitespace */
-
-
-<epoxy>'as'
-    {
-        return 'AS';
-    }
-
-<epoxy>[^\{\}\.\s\|]+
-    {
-        return 'IDENTIFIER';
-    }
-
-<epoxy>'{{'
-    {
-        return 'OPEN';
-    }
-
-<epoxy>'}}'
-    {
-        this.begin('INITIAL')
-        return 'CLOSE';
-    }
-
-<epoxy>'.'
-    {
-        return 'DOT';
-    }
-
-<epoxy>'|'
-    {
-        return 'FILTER';
-    }
-
-<INITIAL,epoxy><<EOF>>
-    {
-        return 'EOF';
-    }
+<INITIAL,epoxy><<EOF>>  { return 'EOF' }
 
 /lex
 
@@ -81,9 +45,9 @@ parts
     ;
 
 part
-    : OPEN statement AS identifier CLOSE
+    : OPEN statement 'as' identifier CLOSE
         { $$ = new yy.Expression(new yy.Path($statement), $identifier) }
-    | OPEN statement FILTER identifier CLOSE
+    | OPEN statement '|' identifier CLOSE
         { $$ = new yy.Expression(new yy.Path($statement), undefined, $identifier) }
     | OPEN statement CLOSE
         { $$ = new yy.Expression(new yy.Path($statement)) }
@@ -94,8 +58,13 @@ part
     ;
 
 statement
-    : statement DOT identifier
-        { $statement.push($identifier); $$ = $statement }
+    : path
+        { $$ = $path }
+    ;
+
+path
+    : path '.' identifier
+        { $path.push($identifier); $$ = $path }
     | identifier
         { $$ = [$identifier] }
     ;
