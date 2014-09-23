@@ -46,6 +46,16 @@ Declarative template data binding.
 
 You can also combine `if` and `repeat`.
 
+#### Unless
+
+```html
+  <template unless="{{ todos.length }}">
+    Well done, you have no todos left!
+  </template>
+```
+
+You can also combine `unless` and `repeat`.
+
 ## MIT License
 
 Copyright (c) 2014 Markus Ast
