@@ -1,6 +1,4 @@
 /test
 **/.*
-*.sublime-project
-*.sublime-workspace
 bower.json
 gulpfile.js
