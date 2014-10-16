@@ -21,10 +21,12 @@ Declarative template data binding.
 
 #### Variables
 
+Can be used inside text:
 ```html
-    <input type="checkbox" checked="{{ todo.isDone }}" />
     <input type="text" value="{{ todo.task }}" />
+    Your task: {{ todo.task }}
 ```
+
 
 #### Repeat
 
@@ -55,6 +57,53 @@ You can also combine `if` and `repeat`.
 ```
 
 You can also combine `unless` and `repeat`.
+
+## Inputs
+
+```html
+    <input type="checkbox" checked="{{ todo.isDone }}" />
+
+    <select value="{{ isDone }}">
+      <option value="true">true</option>
+      <option value="false">false</option>
+    </select>
+
+    <input type="radio" name="isDone" value="true" checked="{{ isDone }}" /> True
+    <input type="radio" name="isDone" value="false" checked="{{ isDone }}" /> False
+
+    <input type="text" value="{{ todo.task }}" />
+
+    <textarea>{{ todo.task }}</textarea>
+```
+
+## Filters
+
+`{{ expression | filterName }}`
+
+## `class`
+
+```html
+  <span class="{{ item.selected | class('active') }}"></span>
+```
+
+### Create Custom Filter
+
+```js
+// getter only
+epoxy.registerFilter('uppercase', function(value) {
+  return value.length
+})
+
+// getter and setter
+epoxy.registerFilter('uppercase', {
+  get: function(value) {
+    return value
+  },
+  set: function(value) {
+    return value.toUpperCase()
+  }
+})
+```
 
 ## MIT License
 

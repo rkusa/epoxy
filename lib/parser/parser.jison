@@ -10,12 +10,17 @@
 
 <epoxy>\s+              /* skip whitespace */
 <epoxy>'as'             { return 'as' }
-<epoxy>[^\{\}\.\s\|]+   { return 'IDENTIFIER' }
+<epoxy>(?!\d)[^\{\}\.\,\s\|\\'\(\)]+ { return 'IDENTIFIER' }
 <epoxy>'{{'             { return 'OPEN' }
 <epoxy>'}}'             { this.begin('INITIAL')
                           return 'CLOSE' }
 <epoxy>'.'              { return '.' }
+<epoxy>','              { return ',' }
 <epoxy>'|'              { return '|' }
+<epoxy>'('              { return '(' }
+<epoxy>')'              { return ')' }
+<epoxy>[\']             { return 'QUOTE' }
+<epoxy>\d+              { return 'NUMBER' }
 
 <INITIAL,epoxy><<EOF>>  { return 'EOF' }
 
@@ -47,8 +52,10 @@ parts
 part
     : OPEN statement 'as' identifier CLOSE
         { $$ = new yy.Expression(new yy.Path($statement), $identifier) }
+    | OPEN statement '|' identifier '(' arguments ')' CLOSE
+        { $$ = new yy.Expression(new yy.Path($statement), undefined, new yy.Filter($identifier, $arguments))}
     | OPEN statement '|' identifier CLOSE
-        { $$ = new yy.Expression(new yy.Path($statement), undefined, $identifier) }
+        { $$ = new yy.Expression(new yy.Path($statement), undefined, new yy.Filter($identifier)) }
     | OPEN statement CLOSE
         { $$ = new yy.Expression(new yy.Path($statement)) }
     | OPEN CLOSE
@@ -72,4 +79,28 @@ path
 identifier
     : IDENTIFIER
         { $$ = $1 }
+    ;
+
+arguments
+    : arguments ',' argument
+        { $arguments.push($argument); $$ = $arguments }
+    | argument
+        { $$ = [$argument] }
+    ;
+
+argument
+    : string
+        { $$ = $1}
+    | number
+        { $$ = $1}
+    ;
+
+string
+    : QUOTE identifier QUOTE
+        { $$ = $identifier }
+    ;
+
+number
+    : NUMBER
+        { $$ = parseFloat($1, 10) }
     ;
