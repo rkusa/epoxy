@@ -50,7 +50,11 @@ parts
     ;
 
 part
-    : OPEN statement 'as' identifier CLOSE
+    : OPEN statement 'as' identifier '|' identifier '(' arguments ')' CLOSE
+        { $$ = new yy.Expression(new yy.Path($2), $4, new yy.Filter($6, $8)) }
+    | OPEN statement 'as' identifier '|' identifier  CLOSE
+        { $$ = new yy.Expression(new yy.Path($2), $4, new yy.Filter($6)) }
+    | OPEN statement 'as' identifier CLOSE
         { $$ = new yy.Expression(new yy.Path($statement), $identifier) }
     | OPEN statement '|' identifier '(' arguments ')' CLOSE
         { $$ = new yy.Expression(new yy.Path($statement), undefined, new yy.Filter($identifier, $arguments))}
