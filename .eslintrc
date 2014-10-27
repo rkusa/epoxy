@@ -13,7 +13,10 @@
     "semi": [2, "never"],
     "quotes": [2, "single"],
     "no-unused-vars": [2, {"vars": "all", "args": "after-used"}],
-    "no-redeclare": 0
+    "no-redeclare": 0,
+    "no-multi-spaces": 0,
+    "key-spacing": 0,
+    "no-shadow": 0
   },
   "globals": {
     "WeakMap": true
