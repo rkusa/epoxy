@@ -97,6 +97,8 @@ argument
         { $$ = $1}
     | number
         { $$ = $1}
+    | path
+        { $$ = new yy.Path($path) }
     ;
 
 string
