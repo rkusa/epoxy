@@ -50,16 +50,12 @@ parts
     ;
 
 part
-    : OPEN statement 'as' identifier '|' identifier '(' arguments ')' CLOSE
-        { $$ = new yy.Expression(new yy.Path($2), $4, new yy.Filter($6, $8)) }
-    | OPEN statement 'as' identifier '|' identifier  CLOSE
-        { $$ = new yy.Expression(new yy.Path($2), $4, new yy.Filter($6)) }
+    : OPEN statement 'as' identifier filters CLOSE
+        { $$ = new yy.Expression(new yy.Path($statement), $identifier, $filters) }
     | OPEN statement 'as' identifier CLOSE
         { $$ = new yy.Expression(new yy.Path($statement), $identifier) }
-    | OPEN statement '|' identifier '(' arguments ')' CLOSE
-        { $$ = new yy.Expression(new yy.Path($statement), undefined, new yy.Filter($identifier, $arguments))}
-    | OPEN statement '|' identifier CLOSE
-        { $$ = new yy.Expression(new yy.Path($statement), undefined, new yy.Filter($identifier)) }
+    | OPEN statement filters CLOSE
+        { $$ = new yy.Expression(new yy.Path($statement), undefined, $filters)}
     | OPEN statement CLOSE
         { $$ = new yy.Expression(new yy.Path($statement)) }
     | OPEN CLOSE
@@ -83,6 +79,20 @@ path
 identifier
     : IDENTIFIER
         { $$ = $1 }
+    ;
+
+filters
+    : filters filter
+        { $filters.push($filter); $$ = $filters }
+    | filter
+        { $$ = [$filter] }
+    ;
+
+filter
+    : '|' identifier '(' arguments ')'
+        { $$ = new yy.Filter($identifier, $arguments) }
+    | '|' identifier
+        { $$ = new yy.Filter($identifier) }
     ;
 
 arguments
