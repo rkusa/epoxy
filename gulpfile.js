@@ -11,7 +11,7 @@ gulp.task('watch', ['browserify', 'jison'], function() {
   gulp.watch(['lib/**/*.js'], ['browserify'])
 })
 
-gulp.task('test', ['lint', 'testem'], function() {
+gulp.task('test', ['testem'], function() {
   setImmediate(function() {
     process.exit(0)
   })
