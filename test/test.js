@@ -48,7 +48,7 @@ describe('expression parser', function() {
     var ast  = epoxy.parse(expr)
     expect(ast.body).to.have.lengthOf(1)
     expect(ast.body[0].path.keys).to.eql(['foo'])
-    expect(ast.body[0].filter).to.eql({ name: 'bar', args: undefined })
+    expect(ast.body[0].filters).to.eql([{ name: 'bar', args: undefined }])
   })
 })
 
