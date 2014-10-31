@@ -50,10 +50,10 @@ parts
     ;
 
 part
-    : OPEN statement 'as' identifier filters CLOSE
-        { $$ = new yy.Expression(new yy.Path($statement), $identifier, $filters) }
-    | OPEN statement 'as' identifier CLOSE
-        { $$ = new yy.Expression(new yy.Path($statement), $identifier) }
+    : OPEN statement 'as' alias filters CLOSE
+        { $$ = new yy.Expression(new yy.Path($statement), $alias, $filters) }
+    | OPEN statement 'as' alias CLOSE
+        { $$ = new yy.Expression(new yy.Path($statement), $alias) }
     | OPEN statement filters CLOSE
         { $$ = new yy.Expression(new yy.Path($statement), undefined, $filters)}
     | OPEN statement CLOSE
@@ -74,6 +74,13 @@ path
         { $path.push($identifier); $$ = $path }
     | identifier
         { $$ = [$identifier] }
+    ;
+
+alias
+    : identifier ',' identifier
+        { $$ = [$1, $3] }
+    | identifier
+        { $$ = $identifier }
     ;
 
 identifier
