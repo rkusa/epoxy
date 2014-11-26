@@ -2,7 +2,7 @@
 
 Declarative template data binding.
 
-[![NPM][npm]](https://npmjs.org/package/epoxy) 
+[![NPM][npm]](https://npmjs.org/package/epoxy)
 [![Build Status][drone]](https://ci.rkusa.st/github.com/rkusa/epoxy)
 
 `epoxy` uses the following emerging Web standards:
@@ -26,7 +26,6 @@ Can be used inside text:
     <input type="text" value="{{ todo.task }}" />
     Your task: {{ todo.task }}
 ```
-
 
 #### Repeat
 
@@ -79,6 +78,10 @@ You can also combine `unless` and `repeat`.
 ## Filters
 
 `{{ expression | filterName }}`
+
+## `html`
+
+Do not encode html entities.
 
 ## `class`
 
