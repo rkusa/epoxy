@@ -56,6 +56,7 @@ describe('template', function() {
   var model
   function resetModel() {
     model = {
+      name: 'rkusa',
       isVisible: true,
       color: 'red',
       tasks: [
@@ -68,7 +69,7 @@ describe('template', function() {
   afterEach(resetModel)
 
   describe('expressions', function() {
-    it('should find expression inside a text node',
+    it('should find and update expression inside a text node',
       compile('text', model))
 
     it('should find expression inside an attribute node',
@@ -76,16 +77,15 @@ describe('template', function() {
   })
 
   describe('boolean attributes', function() {
-    it('should be kept if evaluated to true', function() {
-      compile('boolattrtrue', model.tasks[0])()
-      var checkbox = document.querySelector('#boolattrtrue-expectation input')
-      checkbox.checked = true
+    it('should be true accordingly', function() {
+      var result = compile('boolattr', model.tasks[0])()
+      var checkbox = result.querySelector('input')
       expect(checkbox.checked).to.be.true
     })
 
-    it('should be removed if evaluated to false', function() {
-      compile('boolattrfalse', model.tasks[0])()
-      var checkbox = document.querySelector('#boolattrfalse-expectation input')
+    it('should be false accordingly', function() {
+      var result = compile('boolattr', model.tasks[1])()
+      var checkbox = result.querySelector('input')
       expect(checkbox.checked).to.be.false
     })
   })
@@ -206,6 +206,8 @@ function compile(name, model) {
     var result = div.innerHTML.replace(/\n\s*/g, '')
 
     expect(result).to.equal(expectation)
+
+    return div
   }
 }
 

@@ -9,17 +9,17 @@
   </head>
   <body>
     <div class="hidden">
-      <!-- should find expression inside a text node -->
+      <!-- should find and update expression inside a text node -->
 
       <template id="text-template">
         <p>
-          You have {{ tasks.length }} open tasks.
+          Hello {{ name }}!
         </p>
       </template>
 
       <div id="text-expectation">
         <p>
-          You have 2 open tasks.
+          Hello rkusa!
         </p>
       </div>
 
@@ -33,23 +33,13 @@
         <a href="tasks/1">this</a>
       </div>
 
-      <!-- boolean attributes should be kept if evaluated to true -->
+      <!-- boolean attributes -->
 
-      <template id="boolattrtrue-template">
+      <template id="boolattr-template">
         <input type="checkbox" checked="{{ isDone }}" />
       </template>
 
-      <div id="boolattrtrue-expectation">
-        <input type="checkbox" />
-      </div>
-
-      <!-- boolean attributes should be removed if evaluated to false -->
-
-      <template id="boolattrfalse-template">
-        <input type="checkbox" checked="{{ isDone }}" />
-      </template>
-
-      <div id="boolattrfalse-expectation">
+      <div id="boolattr-expectation">
         <input type="checkbox" />
       </div>
 
