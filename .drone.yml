@@ -1,4 +1,4 @@
-image: rkusa/node:0.10+chrome
+image: rkusa/node-chrome:0.10
 script:
   - Xvfb :99 -extension RANDR -screen 0 1024x768x24 &
   - export DISPLAY=:99

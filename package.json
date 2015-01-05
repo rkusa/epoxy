@@ -18,13 +18,13 @@
   },
   "homepage": "https://github.com/rkusa/epoxy",
   "devDependencies": {
-    "browserify": "^5.10.1",
+    "browserify": "^8.0.3",
     "chai": "^1.9.1",
     "gulp": "^3.8.7",
     "gulp-eslint": "^0.1.8",
     "jison": "^0.4.15",
-    "mocha": "^1.21.4",
+    "mocha": "^2.1.0",
     "testem": "^0.6.18",
-    "vinyl-source-stream": "^0.1.1"
+    "vinyl-source-stream": "^1.0.0"
   }
 }
